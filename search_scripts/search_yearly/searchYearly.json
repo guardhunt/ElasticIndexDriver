@@ -1,0 +1,67 @@
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match_all": {}
+        },
+        {
+          "match_phrase": {
+            "@message": {
+              "query": "\"TrafficLog\""
+            }
+          }
+        },
+        {
+          "range": {
+            "@timestamp": {
+              "gte": 1388552400000,
+              "lte": 1483246799999,
+              "format": "epoch_millis"
+            }
+          }
+        }
+      ],
+      "must_not": []
+    }
+  },
+  "size": 0,
+  "_source": {
+    "excludes": []
+  },
+  "aggs": {
+    "2": {
+      "significant_terms": {
+        "field": "@fields.referrer.keyword",
+        "size": 50
+      },
+      "aggs": {
+        "3": {
+          "terms": {
+            "field": "@fields.ip",
+            "size": 50,
+            "order": {
+              "3-orderAgg": "desc"
+            }
+          },
+          "aggs": {
+            "4": {
+              "terms": {
+                "field": "@timestamp",
+                "size": 50,
+                "order": {
+                  "_count": "desc"
+                }
+              }
+            },
+            "3-orderAgg": {
+              "cardinality": {
+                "field": "@fields.ip"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
