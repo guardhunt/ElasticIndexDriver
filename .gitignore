@@ -1,0 +1,10 @@
+__pycache__
+storage/test*
+storage/yearly_reports/*
+storage/monthly_reports/*
+search_scripts/test_search
+search_scripts/search_weekly/*
+search_scripts/search_monthly/*
+search_scripts/search_yearly/*
+*.swp
+*.sp
